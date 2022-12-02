@@ -12,6 +12,7 @@ const letterBytes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 type Response struct {
 	Responsecode int `json:"responsecode"`
+	NumberOfChars	int	`json:"NumberOfChars"`
 	Passwords	string	`json:"password"`
 }
 
@@ -27,8 +28,11 @@ func buildRandomPassword(numberOfChars int) string{
 // getRandomPassword
 func getRandomPassword(c *gin.Context) {
 	var response Response
+	var numberOfChars int = 50
+	
 	response.Responsecode = http.StatusOK
-	response.Passwords = buildRandomPassword(50)
+	response.Passwords = buildRandomPassword(numberOfChars)
+	response.NumberOfChars = numberOfChars
     c.IndentedJSON(http.StatusOK, response)
 }
 
