@@ -8,7 +8,7 @@ import (
 	"math/rand"
 )
 
-const letterBytes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+const letterBytes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!£$%^&*()_+-=¬[]{}~#,.<>?/*"
 
 type Response struct {
 	Responsecode int `json:"responsecode"`
@@ -29,7 +29,7 @@ func buildRandomPassword(numberOfChars int) string{
 func getRandomPassword(c *gin.Context) {
 	var response Response
 	var numberOfChars int = 50
-	
+
 	response.Responsecode = http.StatusOK
 	response.Passwords = buildRandomPassword(numberOfChars)
 	response.NumberOfChars = numberOfChars
