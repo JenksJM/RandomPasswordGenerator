@@ -10,27 +10,25 @@ import (
 
 const letterBytes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-type Password struct {
-	Password	string	`json:"password"`
+type Response struct {
+	Responsecode int `json:"responsecode"`
+	Passwords	string	`json:"password"`
 }
 
-func buildRandomPassword(numberOfChars int) Password{
-	var randomPassword Password
-
+func buildRandomPassword(numberOfChars int) string{
 	password := make([]byte, numberOfChars)
 	for i := range password {
         password[i] = letterBytes[rand.Intn(len(letterBytes))]
     }
 
-	randomPassword.Password = string(password)
-	return randomPassword
+	return string(password)
 }
 
 // getRandomPassword
 func getRandomPassword(c *gin.Context) {
-	var response = []Password{
-		buildRandomPassword(50),
-	}
+	var response Response
+	response.Responsecode = http.StatusOK
+	response.Passwords = buildRandomPassword(50)
     c.IndentedJSON(http.StatusOK, response)
 }
 
